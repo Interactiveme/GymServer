@@ -62,4 +62,15 @@ router.post('/', VerifyToken, function (req, res) {
         });
 });
 
+
+router.delete('/:id', VerifyToken,function (req, res) {
+    Exercise.findByIdAndRemove(req.params.id, function (err, exercise) {
+        if (err) {
+            return res.status(500).send({message:"There was a problem deleting the exercise."});
+        }
+
+        res.status(200).send({message:"Exercise: "+ exercise.name +" was deleted."});
+    });
+});
+
 module.exports = router;
